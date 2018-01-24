@@ -16,7 +16,7 @@ use Musurp\Neo\Cypher\Component\Expression\Operator\AbstractComparisonOperator;
 /**
  * {@inheritdoc}
  */
-class NotEqualComparisonOperator extends AbstractComparisonOperator
+final class NotEqualComparisonOperator extends AbstractComparisonOperator
 {
     /**
      * {@inheritdoc}
