@@ -12,11 +12,17 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Component\Expression\Operator;
 
 use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExpressionComponent;
 
-abstract class AbstractLogicalOperator extends AbstractComponent
+/**
+ * A logical operator abstraction.
+ *
+ * This abstraction states that any amount of components can be strung together in to a
+ * single logical operation.
+ */
+abstract class AbstractLogicalOperator extends AbstractExpressionComponent
 {
-    private $left;
-    private $right;
+    private $components;
 
     /**
      * Return the operator.
@@ -28,13 +34,11 @@ abstract class AbstractLogicalOperator extends AbstractComponent
     /**
      * Constructor.
      *
-     * @param AbstractComponent $left
-     * @param AbstractComponent $right
+     * @param AbstractComponent[] $components
      */
-    public function __construct(AbstractComponent $left, AbstractComponent $right)
+    public function __construct(AbstractComponent ...$components)
     {
-        $this->left = $left;
-        $this->right = $right;
+        $this->components = $components;
     }
 
     /**
@@ -42,6 +46,8 @@ abstract class AbstractLogicalOperator extends AbstractComponent
      */
     public function toString(): string
     {
-        return sprintf('(%s %s %s)', $this->left->toString(), $this->getOperator(), $this->right->toString());
+        $glue = sprintf(' %s ', $this->getOperator());
+
+        return sprintf('(%s)', implode($glue, $this->components));
     }
 }

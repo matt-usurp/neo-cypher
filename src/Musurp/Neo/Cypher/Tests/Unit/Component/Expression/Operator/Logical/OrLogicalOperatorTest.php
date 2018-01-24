@@ -101,4 +101,43 @@ CYPHER;
 
         self::assertEquals($cypher, $operator->toString());
     }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator
+     */
+    public function createComplexNestedOrOperatorsUsingArgumentUnpacking(): void
+    {
+        $operator = new OrLogicalOperator(
+            new OrLogicalOperator(
+                new OrLogicalOperator(
+                    new DirectUserInput(true),
+                    new DirectUserInput('foo')
+                ),
+                new DirectUserInput('bar')
+            ),
+            new OrLogicalOperator(
+                new DirectUserInput(false),
+                new OrLogicalOperator(
+                    new DirectUserInput(4),
+                    new DirectUserInput(7.4)
+                ),
+                new DirectUserInput(false)
+            ),
+            new OrLogicalOperator(
+                new DirectUserInput(2),
+                new DirectUserInput('hammer')
+            )
+        );
+
+        $cypher = <<<CYPHER
+(((TRUE OR 'foo') OR 'bar') OR (FALSE OR (4 OR 7.4) OR FALSE) OR (2 OR 'hammer'))
+CYPHER;
+
+        self::assertEquals($cypher, $operator->toString());
+    }
 }

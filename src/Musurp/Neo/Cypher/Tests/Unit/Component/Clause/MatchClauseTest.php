@@ -74,12 +74,12 @@ CYPHER;
     public function createClauseMultiplePaths(): void
     {
         $clause = new MatchClause();
-        $clause->paths([
+        $clause->paths(
             (new Path(new Node(null, ['ONE'], []))),
             (new Path(new Node(null, [], [
                 'foo' => 'bar',
-            ]))),
-        ]);
+            ])))
+        );
 
         $cypher = <<<CYPHER
 MATCH (:ONE), ({foo: 'bar'})

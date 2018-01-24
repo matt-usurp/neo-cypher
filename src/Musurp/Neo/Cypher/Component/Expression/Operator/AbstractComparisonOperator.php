@@ -11,10 +11,16 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Component\Expression\Operator;
 
-use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExpressionComponent;
 use Musurp\Neo\Cypher\Component\Expression\AbstractEvaluateableExpression;
 
-abstract class AbstractComparisonOperator extends AbstractComponent
+/**
+ * A comparison operator abstraction.
+ *
+ * This abstraction states that a component on the left will be compared with something
+ * on the right using a comparison operator.
+ */
+abstract class AbstractComparisonOperator extends AbstractExpressionComponent
 {
     private $left;
     private $right;

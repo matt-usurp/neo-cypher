@@ -12,14 +12,34 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Component\Clause;
 
 use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExpressionComponent;
 
 class WhereClause extends AbstractComponent
 {
+    protected $expression;
+
+    /**
+     * Constructor.
+     *
+     * @param AbstractExpressionComponent|null $expression
+     */
+    public function __construct(AbstractExpressionComponent $expression = null)
+    {
+        $this->expression = $expression;
+    }
+
+    public function where(AbstractExpressionComponent $expression): self
+    {
+        $this->expression = $expression;
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function toString(): string
     {
-        return 'WHERE';
+        return sprintf('WHERE %s', $this->expression->toString());
     }
 }

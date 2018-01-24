@@ -61,8 +61,12 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
-    public function where(WhereClause $where): self
+    public function where($where): self
     {
+        if (!$where instanceof WhereClause) {
+            $where = new WhereClause($where);
+        }
+
         $this->where = $where;
 
         return $this;

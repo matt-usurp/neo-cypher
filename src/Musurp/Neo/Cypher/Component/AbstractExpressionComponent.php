@@ -9,10 +9,13 @@
 
 declare(strict_types=1);
 
-namespace Musurp\Neo\Cypher\Component\Expression;
+namespace Musurp\Neo\Cypher\Component;
 
-use Musurp\Neo\Cypher\Component\AbstractExpressionComponent;
+use Musurp\Neo\Cypher\AbstractComponent;
 
-abstract class AbstractEvaluateableExpression extends AbstractExpressionComponent
+/**
+ * {@inheritdoc}
+ */
+abstract class AbstractExpressionComponent extends AbstractComponent
 {
 }

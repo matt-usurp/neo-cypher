@@ -39,7 +39,7 @@ class MatchClause extends AbstractComponent
         return $this;
     }
 
-    public function paths(array $paths): self
+    public function paths(Path ...$paths): self
     {
         foreach ($paths as $path) {
             $this->path($path);

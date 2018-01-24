@@ -14,7 +14,7 @@ namespace Musurp\Neo\Cypher\Component\Expression\Operator\Logical;
 use Musurp\Neo\Cypher\Component\Expression\Operator\AbstractLogicalOperator;
 
 /**
- * A logical OR operator.
+ * Implementation for logical operator: AND.
  */
 final class AndLogicalOperator extends AbstractLogicalOperator
 {

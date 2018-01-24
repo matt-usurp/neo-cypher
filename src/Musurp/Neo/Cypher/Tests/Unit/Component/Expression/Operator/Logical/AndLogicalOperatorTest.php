@@ -101,4 +101,43 @@ CYPHER;
 
         self::assertEquals($cypher, $operator->toString());
     }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator
+     */
+    public function createComplexNestedAndOperatorsUsingArgumentUnpacking(): void
+    {
+        $operator = new AndLogicalOperator(
+            new AndLogicalOperator(
+                new AndLogicalOperator(
+                    new DirectUserInput(true),
+                    new DirectUserInput('foo')
+                ),
+                new DirectUserInput('bar')
+            ),
+            new AndLogicalOperator(
+                new DirectUserInput(false),
+                new AndLogicalOperator(
+                    new DirectUserInput(4),
+                    new DirectUserInput(7.4)
+                ),
+                new DirectUserInput(false)
+            ),
+            new AndLogicalOperator(
+                new DirectUserInput(2),
+                new DirectUserInput('hammer')
+            )
+        );
+
+        $cypher = <<<CYPHER
+(((TRUE AND 'foo') AND 'bar') AND (FALSE AND (4 AND 7.4) AND FALSE) AND (2 AND 'hammer'))
+CYPHER;
+
+        self::assertEquals($cypher, $operator->toString());
+    }
 }

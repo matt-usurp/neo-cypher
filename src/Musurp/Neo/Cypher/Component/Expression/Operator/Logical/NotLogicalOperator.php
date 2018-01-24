@@ -13,6 +13,9 @@ namespace Musurp\Neo\Cypher\Component\Expression\Operator\Logical;
 
 use Musurp\Neo\Cypher\AbstractComponent;
 
+/**
+ * Implementation for logical operator: NOT.
+ */
 final class NotLogicalOperator extends AbstractComponent
 {
     private $expression;
