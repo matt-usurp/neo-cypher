@@ -15,9 +15,9 @@ use Musurp\Neo\Cypher\AbstractComponent;
 use Musurp\Neo\Cypher\Component\Path;
 
 /**
- * A match clause.
+ * Implementation for clause: MATCH.
  */
-class MatchClause extends AbstractComponent
+final class MatchClause extends AbstractComponent
 {
     /** @var Path[] */
     protected $paths;

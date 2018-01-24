@@ -140,4 +140,42 @@ CYPHER;
 
         self::assertEquals($cypher, $builder->build());
     }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Builder\QueryBuilder
+     */
+    public function createQueryBuilderWithMatchAndWhereAndReturn(): void
+    {
+        $builder = new QueryBuilder();
+        $builder->match(
+            $builder::path()->create('var', ['ONE'], [
+                'foo' => 'bar',
+            ])
+        );
+
+        $builder->where(
+            $builder::expr()->andX(
+                $builder::expr()->eq(
+                    new DirectUserInput(1),
+                    new DirectUserInput('hello')
+                ),
+                $builder::path()->create('var', ['TWO'], [])
+            )
+        );
+
+        $builder->return(['var']);
+
+        $cypher = <<<CYPHER
+MATCH (var:ONE {foo: 'bar'})
+WHERE ((1 = 'hello') AND (var:TWO))
+RETURN var
+CYPHER;
+
+        self::assertEquals($cypher, $builder->build());
+    }
 }

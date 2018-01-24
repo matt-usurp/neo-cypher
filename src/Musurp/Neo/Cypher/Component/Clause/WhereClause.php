@@ -14,7 +14,10 @@ namespace Musurp\Neo\Cypher\Component\Clause;
 use Musurp\Neo\Cypher\AbstractComponent;
 use Musurp\Neo\Cypher\Component\AbstractExpressionComponent;
 
-class WhereClause extends AbstractComponent
+/**
+ * Implementation for clause: WHERE.
+ */
+final class WhereClause extends AbstractComponent
 {
     protected $expression;
 

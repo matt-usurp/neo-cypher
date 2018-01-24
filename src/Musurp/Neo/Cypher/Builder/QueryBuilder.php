@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Builder;
 
 use Musurp\Neo\Cypher\Component\Clause\MatchClause;
+use Musurp\Neo\Cypher\Component\Clause\ReturnClause;
 use Musurp\Neo\Cypher\Component\Clause\WhereClause;
 use Musurp\Neo\Cypher\Component\Path;
 use Musurp\Neo\Cypher\Helper\ExpressionHelper;
@@ -22,8 +23,11 @@ class QueryBuilder implements BuilderInterface
     /** @var MatchClause[] */
     protected $matches = [];
 
-    /** @var WhereClause */
+    /** @var WhereClause|null */
     protected $where;
+
+    /** @var ReturnClause|null */
+    protected $return;
 
     public static function path(): PathHelper
     {
@@ -72,6 +76,17 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    public function return($return): self
+    {
+        if (!$return instanceof ReturnClause) {
+            $return = new ReturnClause($return);
+        }
+
+        $this->return = $return;
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -79,6 +94,7 @@ class QueryBuilder implements BuilderInterface
     {
         $matches = null;
         $where = null;
+        $return = null;
 
         if (count($this->matches)) {
             $matches = implode(PHP_EOL, $this->matches);
@@ -88,9 +104,14 @@ class QueryBuilder implements BuilderInterface
             $where = $this->where->toString();
         }
 
+        if ($this->return instanceof ReturnClause) {
+            $return = $this->return->toString();
+        }
+
         return implode(PHP_EOL, array_filter([
             $matches,
             $where,
+            $return,
         ]));
     }
 }

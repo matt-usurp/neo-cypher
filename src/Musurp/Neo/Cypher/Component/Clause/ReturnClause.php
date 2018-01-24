@@ -14,9 +14,9 @@ namespace Musurp\Neo\Cypher\Component\Clause;
 use Musurp\Neo\Cypher\AbstractComponent;
 
 /**
- * Implementation for clause: WITH.
+ * Implementation for clause: RETURN.
  */
-final class WithClause extends AbstractComponent
+final class ReturnClause extends AbstractComponent
 {
     private $variables;
 
@@ -35,6 +35,6 @@ final class WithClause extends AbstractComponent
      */
     public function toString(): string
     {
-        return sprintf('WITH %s', implode(', ', $this->variables));
+        return sprintf('RETURN %s', implode(', ', $this->variables));
     }
 }
