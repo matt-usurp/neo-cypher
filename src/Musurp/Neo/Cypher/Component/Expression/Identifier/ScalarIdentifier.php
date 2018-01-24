@@ -9,21 +9,21 @@
 
 declare(strict_types=1);
 
-namespace Musurp\Neo\Cypher\Component\Expression\Input;
+namespace Musurp\Neo\Cypher\Component\Expression\Identifier;
 
-use Musurp\Neo\Cypher\Component\Expression\AbstractEvaluateableExpression;
+use Musurp\Neo\Cypher\Component\Expression\AbstractIdentifierExpression;
 
 /**
  * {@inheritdoc}
  */
-class DirectUserInput extends AbstractEvaluateableExpression
+class ScalarIdentifier extends AbstractIdentifierExpression
 {
     private $value;
 
     /**
      * Constructor.
      *
-     * @param bool|int|string $value
+     * @param bool|float|int|string $value
      */
     public function __construct($value)
     {
@@ -37,18 +37,20 @@ class DirectUserInput extends AbstractEvaluateableExpression
      */
     public function toString(): string
     {
-        $value = $this->value;
+        if (is_null($this->value)) {
+            return 'NULL';
+        }
 
         if (is_bool($this->value)) {
-            $value = $this->value
+            return $this->value
                 ? 'TRUE'
                 : 'FALSE';
         }
 
         if (is_string($this->value)) {
-            $value = sprintf('\'%s\'', $this->value);
+            return sprintf('\'%s\'', $this->value);
         }
 
-        return (string) $value;
+        return (string) $this->value;
     }
 }

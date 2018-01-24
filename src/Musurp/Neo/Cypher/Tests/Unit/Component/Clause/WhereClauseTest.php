@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Tests\Unit\Component\Clause;
 
 use Musurp\Neo\Cypher\Component\Clause\WhereClause;
-use Musurp\Neo\Cypher\Component\Expression\Input\DirectUserInput;
+use Musurp\Neo\Cypher\Component\Expression\Identifier\ScalarIdentifier;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Comparison\GreaterThanOrEqualComparisonOperator;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\NotLogicalOperator;
@@ -53,7 +53,7 @@ class WhereClauseTest extends TestCase
     public function createClauseWithExpression(): void
     {
         $clause = new WhereClause();
-        $clause->where(new DirectUserInput(true));
+        $clause->where(new ScalarIdentifier(true));
 
         $cypher = <<<CYPHER
 WHERE TRUE
@@ -76,8 +76,8 @@ CYPHER;
         $clause->where(
             new AndLogicalOperator(
                 new GreaterThanOrEqualComparisonOperator(
-                    new DirectUserInput(1),
-                    new DirectUserInput(0)
+                    new ScalarIdentifier(1),
+                    new ScalarIdentifier(0)
                 ),
                 new NotLogicalOperator(
                     (new Path(new Node('var', ['LABEL'], [])))

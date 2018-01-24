@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Musurp\Neo\Cypher\Helper;
+namespace Musurp\Neo\Cypher\Builder\Helper;
 
 use Musurp\Neo\Cypher\Component\Path;
 use Musurp\Neo\Cypher\Component\Path\Node;

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Tests\Unit\Component\Expression\Operator\Logical;
 
-use Musurp\Neo\Cypher\Component\Expression\Input\DirectUserInput;
+use Musurp\Neo\Cypher\Component\Expression\Identifier\ScalarIdentifier;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator;
 
 use PHPUnit\Framework\TestCase;
@@ -32,8 +32,8 @@ class AndLogicalOperatorTest extends TestCase
     public function createBasicAndOperator(): void
     {
         $operator = new AndLogicalOperator(
-            new DirectUserInput(true),
-            new DirectUserInput(false)
+            new ScalarIdentifier(true),
+            new ScalarIdentifier(false)
         );
 
         $cypher = <<<CYPHER
@@ -54,10 +54,10 @@ CYPHER;
     public function createNestedAndOperators(): void
     {
         $operator = new AndLogicalOperator(
-            new DirectUserInput(true),
+            new ScalarIdentifier(true),
             new AndLogicalOperator(
-                new DirectUserInput(true),
-                new DirectUserInput('hello')
+                new ScalarIdentifier(true),
+                new ScalarIdentifier('hello')
             )
         );
 
@@ -81,16 +81,16 @@ CYPHER;
         $operator = new AndLogicalOperator(
             new AndLogicalOperator(
                 new AndLogicalOperator(
-                    new DirectUserInput(true),
-                    new DirectUserInput('foo')
+                    new ScalarIdentifier(true),
+                    new ScalarIdentifier('foo')
                 ),
-                new DirectUserInput('bar')
+                new ScalarIdentifier('bar')
             ),
             new AndLogicalOperator(
-                new DirectUserInput(false),
+                new ScalarIdentifier(false),
                 new AndLogicalOperator(
-                    new DirectUserInput(4),
-                    new DirectUserInput(7.4)
+                    new ScalarIdentifier(4),
+                    new ScalarIdentifier(7.4)
                 )
             )
         );
@@ -115,22 +115,22 @@ CYPHER;
         $operator = new AndLogicalOperator(
             new AndLogicalOperator(
                 new AndLogicalOperator(
-                    new DirectUserInput(true),
-                    new DirectUserInput('foo')
+                    new ScalarIdentifier(true),
+                    new ScalarIdentifier('foo')
                 ),
-                new DirectUserInput('bar')
+                new ScalarIdentifier('bar')
             ),
             new AndLogicalOperator(
-                new DirectUserInput(false),
+                new ScalarIdentifier(false),
                 new AndLogicalOperator(
-                    new DirectUserInput(4),
-                    new DirectUserInput(7.4)
+                    new ScalarIdentifier(4),
+                    new ScalarIdentifier(7.4)
                 ),
-                new DirectUserInput(false)
+                new ScalarIdentifier(false)
             ),
             new AndLogicalOperator(
-                new DirectUserInput(2),
-                new DirectUserInput('hammer')
+                new ScalarIdentifier(2),
+                new ScalarIdentifier('hammer')
             )
         );
 

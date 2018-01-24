@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Builder;
 
+use Musurp\Neo\Cypher\Builder\Helper\ExpressionHelper;
+use Musurp\Neo\Cypher\Builder\Helper\PathHelper;
 use Musurp\Neo\Cypher\Component\Clause\MatchClause;
 use Musurp\Neo\Cypher\Component\Clause\ReturnClause;
 use Musurp\Neo\Cypher\Component\Clause\WhereClause;
 use Musurp\Neo\Cypher\Component\Path;
-use Musurp\Neo\Cypher\Helper\ExpressionHelper;
-use Musurp\Neo\Cypher\Helper\PathHelper;
 
 class QueryBuilder implements BuilderInterface
 {

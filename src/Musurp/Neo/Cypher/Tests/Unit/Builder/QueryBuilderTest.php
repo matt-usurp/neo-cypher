@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Tests\Unit\Builder;
 
 use Musurp\Neo\Cypher\Builder\QueryBuilder;
-use Musurp\Neo\Cypher\Component\Expression\Input\DirectUserInput;
 
 use PHPUnit\Framework\TestCase;
 
@@ -125,10 +124,7 @@ CYPHER;
 
         $builder->where(
             $builder::expr()->andX(
-                $builder::expr()->eq(
-                    new DirectUserInput(1),
-                    new DirectUserInput('hello')
-                ),
+                $builder::expr()->eq(1, 'hello'),
                 $builder::path()->create('var', ['TWO'], [])
             )
         );
@@ -160,10 +156,7 @@ CYPHER;
 
         $builder->where(
             $builder::expr()->andX(
-                $builder::expr()->eq(
-                    new DirectUserInput(1),
-                    new DirectUserInput('hello')
-                ),
+                $builder::expr()->eq(1, 'hello'),
                 $builder::path()->create('var', ['TWO'], [])
             )
         );

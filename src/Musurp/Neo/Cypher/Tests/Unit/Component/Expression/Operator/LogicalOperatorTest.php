@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Tests\Unit\Component\Expression\Operator;
 
-use Musurp\Neo\Cypher\Component\Expression\Input\DirectUserInput;
+use Musurp\Neo\Cypher\Component\Expression\Identifier\ScalarIdentifier;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\NotLogicalOperator;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator;
@@ -34,13 +34,13 @@ class LogicalOperatorTest extends TestCase
     public function createBasicAndOperator(): void
     {
         $operator = new AndLogicalOperator(
-            new DirectUserInput(true),
+            new ScalarIdentifier(true),
             new NotLogicalOperator(
                 new OrLogicalOperator(
-                    new DirectUserInput(1),
+                    new ScalarIdentifier(1),
                     new AndLogicalOperator(
-                        new DirectUserInput('foo'),
-                        new DirectUserInput('bar')
+                        new ScalarIdentifier('foo'),
+                        new ScalarIdentifier('bar')
                     )
                 )
             )

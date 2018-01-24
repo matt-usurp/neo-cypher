@@ -13,6 +13,6 @@ namespace Musurp\Neo\Cypher\Component\Expression;
 
 use Musurp\Neo\Cypher\Component\AbstractExpressionComponent;
 
-abstract class AbstractEvaluateableExpression extends AbstractExpressionComponent
+abstract class AbstractIdentifierExpression extends AbstractExpressionComponent
 {
 }

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Tests\Unit\Component\Expression\Operator\Logical;
 
-use Musurp\Neo\Cypher\Component\Expression\Input\DirectUserInput;
+use Musurp\Neo\Cypher\Component\Expression\Identifier\ScalarIdentifier;
 use Musurp\Neo\Cypher\Component\Expression\Operator\Logical\NotLogicalOperator;
 
 use PHPUnit\Framework\TestCase;
@@ -32,7 +32,7 @@ class NotLogicalOperatorTest extends TestCase
     public function createBasicNotOperator(): void
     {
         $operator = new NotLogicalOperator(
-            new DirectUserInput(true)
+            new ScalarIdentifier(true)
         );
 
         $cypher = <<<CYPHER
@@ -54,7 +54,7 @@ CYPHER;
     {
         $operator = new NotLogicalOperator(
             new NotLogicalOperator(
-                new DirectUserInput(true)
+                new ScalarIdentifier(true)
             )
         );
 
@@ -78,7 +78,7 @@ CYPHER;
         $operator = new NotLogicalOperator(
             new NotLogicalOperator(
                 new NotLogicalOperator(
-                    new DirectUserInput('foo')
+                    new ScalarIdentifier('foo')
                 )
             )
         );
