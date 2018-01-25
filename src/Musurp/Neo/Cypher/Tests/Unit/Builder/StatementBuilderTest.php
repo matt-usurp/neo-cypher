@@ -100,7 +100,7 @@ CYPHER;
      *
      * @covers \Musurp\Neo\Cypher\Builder\StatementBuilder
      */
-    public function createStatementBuilderMultipleSegments(): void
+    public function createStatementBuilderWithAndReturn(): void
     {
         $builder = new QueryBuilder();
         $builder->match([
@@ -114,13 +114,13 @@ CYPHER;
 
         $statement = new StatementBuilder();
         $statement->with($builder, ['a', 'b']);
-        $statement->with($builder, ['c']);
+        $statement->return($builder, ['c']);
 
         $cypher = <<<CYPHER
 MATCH (a:ONE), (b:TWO)-[:THREE]->()
 WITH a, b
 MATCH (a:ONE), (b:TWO)-[:THREE]->()
-WITH c
+RETURN c
 CYPHER;
 
         self::assertEquals($cypher, $statement->build());

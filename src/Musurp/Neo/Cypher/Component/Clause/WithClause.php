@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Component\Clause;
 
-use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExitClause;
 
 /**
  * Implementation for clause: WITH.
  */
-final class WithClause extends AbstractComponent
+final class WithClause extends AbstractExitClause
 {
     private $variables;
 

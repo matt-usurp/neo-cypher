@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Component\Clause;
 
-use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExitClause;
 
 /**
  * Implementation for clause: RETURN.
  */
-final class ReturnClause extends AbstractComponent
+final class ReturnClause extends AbstractExitClause
 {
     private $variables;
 
