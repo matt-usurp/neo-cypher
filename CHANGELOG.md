@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Nothing.
+
+## [0.1.1] - 2018-01-25
+
 - Added the `IN` list comparison operator.
 - Added temporary `AmbiguousComponent` for cases where syntax isn't implemented by the library.
 
