@@ -37,7 +37,7 @@ class RelationshipTest extends TestCase
 --
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 
     /**
@@ -56,7 +56,7 @@ CYPHER;
 -->
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 
     /**
@@ -75,7 +75,7 @@ CYPHER;
 <--
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 
     /**
@@ -95,7 +95,7 @@ CYPHER;
 -[]-
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 
     /**
@@ -115,7 +115,7 @@ CYPHER;
 -[]->
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 
     /**
@@ -135,7 +135,7 @@ CYPHER;
 <-[]-
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 
     /**
@@ -155,6 +155,6 @@ CYPHER;
 -[:ONE]-
 CYPHER;
 
-        self::assertEquals($cypher, $relationship->toString());
+        self::assertEquals($cypher, $relationship->compile());
     }
 }

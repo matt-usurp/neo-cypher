@@ -33,7 +33,7 @@ class WithClauseTest extends TestCase
         self::markTestIncomplete();
 
         $clause = new WithClause([]);
-        $clause->toString();
+        $clause->compile();
     }
 
     /**
@@ -52,7 +52,7 @@ class WithClauseTest extends TestCase
 WITH one
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 
     /**
@@ -71,6 +71,6 @@ CYPHER;
 WITH one, two
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 }

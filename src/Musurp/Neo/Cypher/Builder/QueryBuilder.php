@@ -101,11 +101,11 @@ class QueryBuilder implements BuilderInterface
         }
 
         if ($this->where instanceof WhereClause) {
-            $where = $this->where->toString();
+            $where = $this->where->compile();
         }
 
         if ($this->return instanceof ReturnClause) {
-            $return = $this->return->toString();
+            $return = $this->return->compile();
         }
 
         return implode(PHP_EOL, array_filter([

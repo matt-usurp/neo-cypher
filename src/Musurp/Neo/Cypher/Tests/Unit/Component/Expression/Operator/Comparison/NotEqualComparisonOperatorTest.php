@@ -59,7 +59,7 @@ class NotEqualComparisonOperatorTest extends TestCase
     public function createWithScalarValuesDirect(string $expected, $left, $right): void
     {
         $operator = new NotEqualComparisonOperator($left, $right);
-        self::assertEquals($expected, $operator->toString());
+        self::assertEquals($expected, $operator->compile());
     }
 
     /**
@@ -81,6 +81,6 @@ class NotEqualComparisonOperatorTest extends TestCase
 (TRUE <> FALSE)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

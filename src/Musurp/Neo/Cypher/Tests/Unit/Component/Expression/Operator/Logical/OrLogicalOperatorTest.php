@@ -40,7 +40,7 @@ class OrLogicalOperatorTest extends TestCase
 (TRUE OR FALSE)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -65,7 +65,7 @@ CYPHER;
 (TRUE OR (TRUE OR 'hello'))
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -99,7 +99,7 @@ CYPHER;
 (((TRUE OR 'foo') OR 'bar') OR (FALSE OR (4 OR 7.4)))
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -138,6 +138,6 @@ CYPHER;
 (((TRUE OR 'foo') OR 'bar') OR (FALSE OR (4 OR 7.4) OR FALSE) OR (2 OR 'hammer'))
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

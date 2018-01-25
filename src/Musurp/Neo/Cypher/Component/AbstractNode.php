@@ -58,7 +58,7 @@ abstract class AbstractNode extends AbstractComponent
      *
      * @return string
      */
-    public function toString(): string
+    public function compile(): string
     {
         $string = $this->variable ?: '';
 

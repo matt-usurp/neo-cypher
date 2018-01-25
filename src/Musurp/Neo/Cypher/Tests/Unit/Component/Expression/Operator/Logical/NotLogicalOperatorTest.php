@@ -39,7 +39,7 @@ class NotLogicalOperatorTest extends TestCase
 NOT TRUE
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -62,7 +62,7 @@ CYPHER;
 NOT NOT TRUE
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -87,6 +87,6 @@ CYPHER;
 NOT NOT NOT 'foo'
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

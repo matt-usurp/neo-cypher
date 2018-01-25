@@ -35,7 +35,7 @@ class ScalarIdentifier extends AbstractIdentifierExpression
      *
      * @return string
      */
-    public function toString(): string
+    public function compile(): string
     {
         if (is_null($this->value)) {
             return 'NULL';

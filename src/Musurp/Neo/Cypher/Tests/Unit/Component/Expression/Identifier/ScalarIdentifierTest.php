@@ -32,7 +32,7 @@ class ScalarIdentifierTest extends TestCase
     {
         $identifier = new ScalarIdentifier(null);
 
-        self::assertEquals('NULL', $identifier->toString());
+        self::assertEquals('NULL', $identifier->compile());
     }
 
     /**
@@ -47,7 +47,7 @@ class ScalarIdentifierTest extends TestCase
     {
         $identifier = new ScalarIdentifier(true);
 
-        self::assertEquals('TRUE', $identifier->toString());
+        self::assertEquals('TRUE', $identifier->compile());
     }
 
     /**
@@ -62,7 +62,7 @@ class ScalarIdentifierTest extends TestCase
     {
         $identifier = new ScalarIdentifier(false);
 
-        self::assertEquals('FALSE', $identifier->toString());
+        self::assertEquals('FALSE', $identifier->compile());
     }
 
     /**
@@ -77,7 +77,7 @@ class ScalarIdentifierTest extends TestCase
     {
         $identifier = new ScalarIdentifier(123);
 
-        self::assertEquals('123', $identifier->toString());
+        self::assertEquals('123', $identifier->compile());
     }
 
     /**
@@ -92,7 +92,7 @@ class ScalarIdentifierTest extends TestCase
     {
         $identifier = new ScalarIdentifier(12.3);
 
-        self::assertEquals('12.3', $identifier->toString());
+        self::assertEquals('12.3', $identifier->compile());
     }
 
     /**
@@ -107,6 +107,6 @@ class ScalarIdentifierTest extends TestCase
     {
         $identifier = new ScalarIdentifier('hello');
 
-        self::assertEquals('\'hello\'', $identifier->toString());
+        self::assertEquals('\'hello\'', $identifier->compile());
     }
 }

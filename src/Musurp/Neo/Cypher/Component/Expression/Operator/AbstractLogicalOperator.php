@@ -44,7 +44,7 @@ abstract class AbstractLogicalOperator extends AbstractExpressionComponent
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(): string
     {
         $glue = sprintf(' %s ', $this->getOperator());
 

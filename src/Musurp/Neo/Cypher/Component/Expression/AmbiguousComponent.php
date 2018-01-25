@@ -38,7 +38,7 @@ class AmbiguousComponent extends AbstractComponent
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(): string
     {
         return $this->value;
     }

@@ -39,7 +39,7 @@ class WhereClauseTest extends TestCase
         self::markTestIncomplete();
 
         $clause = new WhereClause([]);
-        $clause->toString();
+        $clause->compile();
     }
 
     /**
@@ -59,7 +59,7 @@ class WhereClauseTest extends TestCase
 WHERE TRUE
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 
     /**
@@ -92,6 +92,6 @@ CYPHER;
 WHERE ((1 >= 0) AND NOT (var:LABEL)-->(:TWO))
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 }

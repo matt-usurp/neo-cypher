@@ -50,6 +50,6 @@ class LogicalOperatorTest extends TestCase
 (TRUE AND NOT (1 OR ('foo' AND 'bar')))
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

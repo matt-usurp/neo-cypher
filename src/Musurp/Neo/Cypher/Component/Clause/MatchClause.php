@@ -53,7 +53,7 @@ final class MatchClause extends AbstractComponent
      *
      * @return string
      */
-    public function toString(): string
+    public function compile(): string
     {
         return sprintf('MATCH %s', implode(', ', $this->paths));
     }

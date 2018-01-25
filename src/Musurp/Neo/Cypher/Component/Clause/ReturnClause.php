@@ -33,7 +33,7 @@ final class ReturnClause extends AbstractExitClause
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(): string
     {
         return sprintf('RETURN %s', implode(', ', $this->variables));
     }

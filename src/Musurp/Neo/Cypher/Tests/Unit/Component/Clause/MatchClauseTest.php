@@ -38,7 +38,7 @@ class MatchClauseTest extends TestCase
         self::expectException(ComponentRuntimeException::class);
 
         $clause = new MatchClause();
-        $clause->toString();
+        $clause->compile();
     }
 
     /**
@@ -60,7 +60,7 @@ class MatchClauseTest extends TestCase
 MATCH (:ONE)
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 
     /**
@@ -85,6 +85,6 @@ CYPHER;
 MATCH (:ONE), ({foo: 'bar'})
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 }

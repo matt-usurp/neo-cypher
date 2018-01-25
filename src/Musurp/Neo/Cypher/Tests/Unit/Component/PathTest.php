@@ -39,7 +39,7 @@ class PathTest extends TestCase
 ()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -60,7 +60,7 @@ CYPHER;
 ()--()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -81,7 +81,7 @@ CYPHER;
 ()-->()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -102,7 +102,7 @@ CYPHER;
 ()<--()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -123,7 +123,7 @@ CYPHER;
 ()-[]-()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -144,7 +144,7 @@ CYPHER;
 ()-[]->()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -165,7 +165,7 @@ CYPHER;
 ()<-[]-()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 
     /**
@@ -188,9 +188,9 @@ CYPHER;
 ()--()--()
 CYPHER;
 
-        self::assertEquals($cypher, $a->toString());
-        self::assertEquals($cypher, $b->toString());
-        self::assertEquals($cypher, $c->toString());
+        self::assertEquals($cypher, $a->compile());
+        self::assertEquals($cypher, $b->compile());
+        self::assertEquals($cypher, $c->compile());
     }
 
     /**
@@ -214,6 +214,6 @@ CYPHER;
 ()--()--()
 CYPHER;
 
-        self::assertEquals($cypher, $path->toString());
+        self::assertEquals($cypher, $path->compile());
     }
 }

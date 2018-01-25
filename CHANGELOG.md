@@ -6,11 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Change
+- The `AbstractComponent::toString()` method has been renamed to `compile()`.
 - The `StatementBuilder` now supports `RETURN`.
 - The `RETURN` and `WITH` clauses now extend a common `AbstractExitClause`.
 
 ## [0.1.1] - 2018-01-25
 
+### Added
 - Added the `IN` list comparison operator.
 - Added temporary `AmbiguousComponent` for cases where syntax isn't implemented by the library.
 

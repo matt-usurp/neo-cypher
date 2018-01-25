@@ -33,7 +33,7 @@ final class WithClause extends AbstractExitClause
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(): string
     {
         return sprintf('WITH %s', implode(', ', $this->variables));
     }

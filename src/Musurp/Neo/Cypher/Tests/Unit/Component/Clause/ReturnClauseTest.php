@@ -33,7 +33,7 @@ class ReturnClauseTest extends TestCase
         self::markTestIncomplete();
 
         $clause = new ReturnClause([]);
-        $clause->toString();
+        $clause->compile();
     }
 
     /**
@@ -52,7 +52,7 @@ class ReturnClauseTest extends TestCase
 RETURN one
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 
     /**
@@ -71,6 +71,6 @@ CYPHER;
 RETURN one, two
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
     }
 }
