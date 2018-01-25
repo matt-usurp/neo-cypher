@@ -1,0 +1,30 @@
+{
+  "name": "matt-usurp/neo-cypher",
+  "description": "A PHP ~7.1 library to assist with the creation and mangement of Neo4J Graph Database Cypher queries.",
+  "license": "MIT",
+  "type": "library",
+  "minimum-stability": "stable",
+
+  "authors": [
+    {
+      "name": "Matthew Rose",
+      "email": "matt.usurp@gmail.com"
+    }
+  ],
+
+  "require": {
+    "php": "~7.1"
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "~6.0",
+    "friendsofphp/php-cs-fixer": "~2.0",
+    "mmoreram/php-formatter": "~1.0"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "Musurp\\Neo\\Cypher\\": "src/Musurp/Neo/Cypher"
+    }
+  }
+}
