@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Nothing.
+
+## [0.1.0] - 2018-01-25
+
 ### Added
+- Added `RETURN` [clause](http://neo4j.com/docs/developer-manual/current/cypher/clauses/) and improved developer experience.
 - Added `StatementBuilder` and `WITH` [clause](http://neo4j.com/docs/developer-manual/current/cypher/clauses/).
 - Added `QueryBuilder` and helpers `PathHelper` and `NodeHelper`.
 - Added `=`, `<>`, `>`, `>=`, `<`, `<=` logical [operators](http://neo4j.com/docs/developer-manual/current/cypher/syntax/operators/).
