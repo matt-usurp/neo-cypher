@@ -32,4 +32,16 @@ abstract class AbstractComponent
     {
         return $this->compile();
     }
+
+    /**
+     * Pad a string to be indented on every line.
+     *
+     * @param string $statement
+     *
+     * @return string
+     */
+    protected function pad(string $statement): string
+    {
+        return sprintf('  %s', str_replace("\n", "\n  ", $statement));
+    }
 }

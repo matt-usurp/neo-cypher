@@ -35,6 +35,10 @@ final class WithClause extends AbstractExitClause
      */
     public function compile(): string
     {
-        return sprintf('WITH %s', implode(', ', $this->variables));
+        if (count($this->variables) === 1) {
+            return sprintf('WITH %s', implode(', ', $this->variables));
+        }
+
+        return sprintf("WITH\n%s", $this->pad(implode(",\n", $this->variables)));
     }
 }

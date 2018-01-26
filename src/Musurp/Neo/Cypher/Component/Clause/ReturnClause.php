@@ -35,6 +35,10 @@ final class ReturnClause extends AbstractExitClause
      */
     public function compile(): string
     {
-        return sprintf('RETURN %s', implode(', ', $this->variables));
+        if (count($this->variables) === 1) {
+            return sprintf('RETURN %s', implode(', ', $this->variables));
+        }
+
+        return sprintf("RETURN\n%s", $this->pad(implode(",\n", $this->variables)));
     }
 }

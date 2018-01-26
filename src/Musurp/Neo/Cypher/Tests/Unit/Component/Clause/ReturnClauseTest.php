@@ -68,7 +68,9 @@ CYPHER;
         $clause = new ReturnClause(['one', 'two']);
 
         $cypher = <<<CYPHER
-RETURN one, two
+RETURN
+  one,
+  two
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());

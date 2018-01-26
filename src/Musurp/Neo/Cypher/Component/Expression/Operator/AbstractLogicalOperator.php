@@ -48,6 +48,12 @@ abstract class AbstractLogicalOperator extends AbstractExpressionComponent
     {
         $glue = sprintf(' %s ', $this->getOperator());
 
-        return sprintf('(%s)', implode($glue, $this->components));
+        if (count($this->components) === 1) {
+            return sprintf('(%s)', implode($glue, $this->components));
+        }
+
+        $glue = sprintf("\n%s ", $this->getOperator());
+
+        return sprintf("(\n%s\n)", $this->pad(implode($glue, $this->components)));
     }
 }

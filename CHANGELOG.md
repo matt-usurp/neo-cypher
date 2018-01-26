@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Change
+- The `compile()` output is now considered "prettier" instead of a single line.
 - The `AbstractComponent::toString()` method has been renamed to `compile()`.
 - The `StatementBuilder` now supports `RETURN`.
 - The `RETURN` and `WITH` clauses now extend a common `AbstractExitClause`.

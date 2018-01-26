@@ -82,7 +82,9 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-MATCH (:ONE), ({foo: 'bar'})
+MATCH
+  (:ONE),
+  ({foo: 'bar'})
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());

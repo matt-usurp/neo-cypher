@@ -89,7 +89,10 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-WHERE ((1 >= 0) AND NOT (var:LABEL)-->(:TWO))
+WHERE (
+  (1 >= 0)
+  AND NOT (var:LABEL)-->(:TWO)
+)
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());

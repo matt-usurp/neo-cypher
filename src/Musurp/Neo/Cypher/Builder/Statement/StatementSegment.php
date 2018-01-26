@@ -37,7 +37,7 @@ class StatementSegment implements BuilderInterface
      */
     public function build(): string
     {
-        return implode(PHP_EOL, [
+        return implode("\n\n", [
             $this->builder->build(),
             $this->exit->compile(),
         ]);

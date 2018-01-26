@@ -99,7 +99,9 @@ CYPHER;
 
         $cypher = <<<CYPHER
 MATCH ()
-MATCH (:ONE), (var:ONE {foo: 'bar'})
+MATCH
+  (:ONE),
+  (var:ONE {foo: 'bar'})
 CYPHER;
 
         self::assertEquals($cypher, $builder->build());
@@ -131,7 +133,10 @@ CYPHER;
 
         $cypher = <<<CYPHER
 MATCH (var:ONE {foo: 'bar'})
-WHERE ((1 = 'hello') AND (var:TWO))
+WHERE (
+  (1 = 'hello')
+  AND (var:TWO)
+)
 CYPHER;
 
         self::assertEquals($cypher, $builder->build());
@@ -157,7 +162,8 @@ CYPHER;
         $builder->where(
             $builder::expr()->andX(
                 $builder::expr()->eq(1, 'hello'),
-                $builder::path()->create('var', ['TWO'], [])
+                $builder::path()->create('var', ['TWO'], []),
+                $builder::expr()->lt(1, 2)
             )
         );
 
@@ -165,7 +171,11 @@ CYPHER;
 
         $cypher = <<<CYPHER
 MATCH (var:ONE {foo: 'bar'})
-WHERE ((1 = 'hello') AND (var:TWO))
+WHERE (
+  (1 = 'hello')
+  AND (var:TWO)
+  AND (1 < 2)
+)
 RETURN var
 CYPHER;
 

@@ -47,7 +47,16 @@ class LogicalOperatorTest extends TestCase
         );
 
         $cypher = <<<CYPHER
-(TRUE AND NOT (1 OR ('foo' AND 'bar')))
+(
+  TRUE
+  AND NOT (
+    1
+    OR (
+      'foo'
+      AND 'bar'
+    )
+  )
+)
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());

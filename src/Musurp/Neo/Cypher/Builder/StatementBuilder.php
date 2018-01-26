@@ -45,6 +45,6 @@ class StatementBuilder implements BuilderInterface
             $strings[] = $segment->build();
         }
 
-        return implode(PHP_EOL, $strings);
+        return implode("\n\n", $strings);
     }
 }

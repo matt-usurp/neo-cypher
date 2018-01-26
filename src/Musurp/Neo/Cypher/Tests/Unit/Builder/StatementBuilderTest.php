@@ -55,6 +55,7 @@ class StatementBuilderTest extends TestCase
 
         $cypher = <<<CYPHER
 MATCH (a)
+
 WITH a
 CYPHER;
 
@@ -85,8 +86,13 @@ CYPHER;
         $statement->with($builder, ['a', 'b']);
 
         $cypher = <<<CYPHER
-MATCH (a:ONE), (b:TWO)-[:THREE]->()
-WITH a, b
+MATCH
+  (a:ONE),
+  (b:TWO)-[:THREE]->()
+
+WITH
+  a,
+  b
 CYPHER;
 
         self::assertEquals($cypher, $statement->build());
@@ -117,9 +123,18 @@ CYPHER;
         $statement->return($builder, ['c']);
 
         $cypher = <<<CYPHER
-MATCH (a:ONE), (b:TWO)-[:THREE]->()
-WITH a, b
-MATCH (a:ONE), (b:TWO)-[:THREE]->()
+MATCH
+  (a:ONE),
+  (b:TWO)-[:THREE]->()
+
+WITH
+  a,
+  b
+
+MATCH
+  (a:ONE),
+  (b:TWO)-[:THREE]->()
+
 RETURN c
 CYPHER;
 

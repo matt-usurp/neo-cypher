@@ -37,7 +37,10 @@ class AndLogicalOperatorTest extends TestCase
         );
 
         $cypher = <<<CYPHER
-(TRUE AND FALSE)
+(
+  TRUE
+  AND FALSE
+)
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());
@@ -62,7 +65,13 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(TRUE AND (TRUE AND 'hello'))
+(
+  TRUE
+  AND (
+    TRUE
+    AND 'hello'
+  )
+)
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());
@@ -96,7 +105,22 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(((TRUE AND 'foo') AND 'bar') AND (FALSE AND (4 AND 7.4)))
+(
+  (
+    (
+      TRUE
+      AND 'foo'
+    )
+    AND 'bar'
+  )
+  AND (
+    FALSE
+    AND (
+      4
+      AND 7.4
+    )
+  )
+)
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());
@@ -135,7 +159,27 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(((TRUE AND 'foo') AND 'bar') AND (FALSE AND (4 AND 7.4) AND FALSE) AND (2 AND 'hammer'))
+(
+  (
+    (
+      TRUE
+      AND 'foo'
+    )
+    AND 'bar'
+  )
+  AND (
+    FALSE
+    AND (
+      4
+      AND 7.4
+    )
+    AND FALSE
+  )
+  AND (
+    2
+    AND 'hammer'
+  )
+)
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());

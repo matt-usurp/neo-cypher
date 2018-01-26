@@ -55,6 +55,10 @@ final class MatchClause extends AbstractComponent
      */
     public function compile(): string
     {
-        return sprintf('MATCH %s', implode(', ', $this->paths));
+        if (count($this->paths) === 1) {
+            return sprintf('MATCH %s', implode(', ', $this->paths));
+        }
+
+        return sprintf("MATCH\n%s", $this->pad(implode(",\n", $this->paths)));
     }
 }
