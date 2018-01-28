@@ -6,16 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added the `HashMap` for creating hash maps.
+
 ### Change
-- The `compile()` output is now considered "prettier" instead of a single line.
+- The `AbstractNodecomponent` now uses `HashMap` instead of the `HashMapHelper` directly.
+- The Cypher output formatting is now "prettier" instead of being on a single line.
 - The `AbstractComponent::toString()` method has been renamed to `compile()`.
-- The `StatementBuilder` now supports `RETURN`.
-- The `RETURN` and `WITH` clauses now extend a common `AbstractExitClause`.
+- The `StatementBuilder` now supports the `RETURN` [clause](http://neo4j.com/docs/developer-manual/current/cypher/clauses/).
+- The `RETURN` and `WITH` [clauses](http://neo4j.com/docs/developer-manual/current/cypher/clauses/) now extend a common `AbstractExitClause` class.
 
 ## [0.1.1] - 2018-01-25
 
 ### Added
-- Added the `IN` list comparison operator.
+- Added the `IN` list comparison [operator](http://neo4j.com/docs/developer-manual/current/cypher/syntax/operators/).
 - Added temporary `AmbiguousComponent` for cases where syntax isn't implemented by the library.
 
 ## [0.1.0] - 2018-01-25

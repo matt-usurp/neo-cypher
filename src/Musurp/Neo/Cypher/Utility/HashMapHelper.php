@@ -11,8 +11,17 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Utility;
 
-final class MapHelper
+/**
+ * A hash map helper within the Cypher syntax.
+ */
+final class HashMapHelper
 {
+    /**
+     * @param array $properties
+     * @param string|null $alias
+     *
+     * @return string
+     */
     public static function list(array $properties, ?string $alias): string
     {
         $parts = [];
@@ -34,15 +43,33 @@ final class MapHelper
         return join(', ', $parts);
     }
 
+    /**
+     * @param array $properties
+     *
+     * @return string
+     */
     public static function map(array $properties): string
     {
         $parts = [];
 
+        if (count($properties) === 0) {
+            return '{}';
+        }
+
         foreach ($properties as $key => $value) {
             $formatted = $value;
 
-            if (is_string($value)) {
+            if (is_array($value)) {
+                if (count($value) === 0) {
+                    continue;
+                }
+                $formatted = self::map($value);
+            } elseif (is_string($value)) {
                 $formatted = sprintf('\'%s\'', addslashes($value));
+            } elseif (is_bool($value)) {
+                $formatted = $value ? 1 : 0;
+            } elseif (is_null($value)) {
+                $formatted = 'null';
             }
 
             $parts[] = sprintf('%s: %s', $key, $formatted);
