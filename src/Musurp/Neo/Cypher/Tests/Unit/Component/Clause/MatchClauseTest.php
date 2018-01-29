@@ -71,6 +71,28 @@ CYPHER;
      *
      * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
      */
+    public function createClauseSinglePathWithoutPrettyHasNoEffect(): void
+    {
+        $clause = new MatchClause();
+        $clause->path(
+            (new Path(new Node(null, ['ONE'], [])))
+        );
+
+        $cypher = <<<CYPHER
+MATCH (:ONE)
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     */
     public function createClauseMultiplePaths(): void
     {
         $clause = new MatchClause();
@@ -88,5 +110,30 @@ MATCH
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     */
+    public function createClauseMultiplePathsWithoutPretty(): void
+    {
+        $clause = new MatchClause();
+        $clause->paths(
+            (new Path(new Node(null, ['ONE'], []))),
+            (new Path(new Node(null, [], [
+                'foo' => 'bar',
+            ])))
+        );
+
+        $cypher = <<<CYPHER
+MATCH (:ONE), ({foo: 'bar'})
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
     }
 }

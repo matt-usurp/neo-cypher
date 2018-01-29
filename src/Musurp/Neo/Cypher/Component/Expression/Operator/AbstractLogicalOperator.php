@@ -44,16 +44,16 @@ abstract class AbstractLogicalOperator extends AbstractExpressionComponent
     /**
      * {@inheritdoc}
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
         $glue = sprintf(' %s ', $this->getOperator());
 
-        if (count($this->components) === 1) {
-            return sprintf('(%s)', implode($glue, $this->components));
+        if (!$pretty || (count($this->components) === 1)) {
+            return sprintf('(%s)', $this->glue($glue, $this->components, $pretty));
         }
 
         $glue = sprintf("\n%s ", $this->getOperator());
 
-        return sprintf("(\n%s\n)", $this->pad(implode($glue, $this->components)));
+        return sprintf("(\n%s\n)", $this->pad($this->glue($glue, $this->components, $pretty)));
     }
 }

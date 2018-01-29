@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added the `HashMap` for creating hash maps.
 
 ### Change
+- The `compile()` method now accepts a boolean to optionally output non-pretty.
 - The `AbstractNodecomponent` now uses `HashMap` instead of the `HashMapHelper` directly.
 - The Cypher output formatting is now "prettier" instead of being on a single line.
 - The `AbstractComponent::toString()` method has been renamed to `compile()`.

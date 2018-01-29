@@ -51,11 +51,13 @@ final class MatchClause extends AbstractComponent
     /**
      * Return the expression as string.
      *
+     * @param bool $pretty
+     *
      * @return string
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
-        if (count($this->paths) === 1) {
+        if (!$pretty || (count($this->paths) === 1)) {
             return sprintf('MATCH %s', implode(', ', $this->paths));
         }
 

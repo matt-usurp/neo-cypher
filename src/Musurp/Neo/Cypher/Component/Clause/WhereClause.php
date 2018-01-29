@@ -41,8 +41,8 @@ final class WhereClause extends AbstractComponent
     /**
      * {@inheritdoc}
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
-        return sprintf('WHERE %s', $this->expression->compile());
+        return sprintf('WHERE %s', $this->expression->compile($pretty));
     }
 }

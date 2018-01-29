@@ -54,6 +54,28 @@ CYPHER;
      *
      * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator
      */
+    public function createBasicAndOperatorWithoutPretty(): void
+    {
+        $operator = new AndLogicalOperator(
+            new ScalarIdentifier(true),
+            new ScalarIdentifier(false)
+        );
+
+        $cypher = <<<CYPHER
+(TRUE AND FALSE)
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile(false));
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator
+     */
     public function createNestedAndOperators(): void
     {
         $operator = new AndLogicalOperator(
@@ -75,6 +97,31 @@ CYPHER;
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator
+     */
+    public function createNestedAndOperatorsWithoutPretty(): void
+    {
+        $operator = new AndLogicalOperator(
+            new ScalarIdentifier(true),
+            new AndLogicalOperator(
+                new ScalarIdentifier(true),
+                new ScalarIdentifier('hello')
+            )
+        );
+
+        $cypher = <<<CYPHER
+(TRUE AND (TRUE AND 'hello'))
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile(false));
     }
 
     /**

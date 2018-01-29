@@ -19,9 +19,11 @@ abstract class AbstractComponent
     /**
      * Compile the expression to string.
      *
+     * @param bool $pretty
+     *
      * @return string
      */
-    abstract public function compile(): string;
+    abstract public function compile(bool $pretty = true): string;
 
     /**
      * A magic method to allow all components to be cast to string.
@@ -43,5 +45,25 @@ abstract class AbstractComponent
     protected function pad(string $statement): string
     {
         return sprintf('  %s', str_replace("\n", "\n  ", $statement));
+    }
+
+    /**
+     * Glue a series of components.
+     *
+     * @param string $glue
+     * @param AbstractComponent[] $components
+     * @param bool $pretty
+     *
+     * @return string
+     */
+    protected function glue(string $glue, array $components, bool $pretty = true): string
+    {
+        $compiled = [];
+
+        foreach ($components as $component) {
+            $compiled[] = $component->compile($pretty);
+        }
+
+        return implode($glue, $compiled);
     }
 }

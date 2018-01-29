@@ -61,6 +61,25 @@ CYPHER;
      * @group unit
      * @group component
      *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\WithClause
+     */
+    public function createClauseSingleVariableWithoutPrettyHasNoEffect(): void
+    {
+        $clause = new ReturnClause(['one']);
+
+        $cypher = <<<CYPHER
+RETURN one
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
      * @covers \Musurp\Neo\Cypher\Component\Clause\ReturnClause
      */
     public function createClauseMultipleVariables(): void
@@ -74,5 +93,24 @@ RETURN
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\ReturnClause
+     */
+    public function createClauseMultipleVariablesWithoutPretty(): void
+    {
+        $clause = new ReturnClause(['one', 'two']);
+
+        $cypher = <<<CYPHER
+RETURN one, two
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
     }
 }

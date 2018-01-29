@@ -54,6 +54,28 @@ CYPHER;
      *
      * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator
      */
+    public function createBasicOrOperatorWithoutPretty(): void
+    {
+        $operator = new OrLogicalOperator(
+            new ScalarIdentifier(true),
+            new ScalarIdentifier(false)
+        );
+
+        $cypher = <<<CYPHER
+(TRUE OR FALSE)
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile(false));
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator
+     */
     public function createNestedOrOperators(): void
     {
         $operator = new OrLogicalOperator(
@@ -75,6 +97,31 @@ CYPHER;
 CYPHER;
 
         self::assertEquals($cypher, $operator->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator
+     */
+    public function createNestedOrOperatorsWithoutPretty(): void
+    {
+        $operator = new OrLogicalOperator(
+            new ScalarIdentifier(true),
+            new OrLogicalOperator(
+                new ScalarIdentifier(true),
+                new ScalarIdentifier('hello')
+            )
+        );
+
+        $cypher = <<<CYPHER
+(TRUE OR (TRUE OR 'hello'))
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile(false));
     }
 
     /**

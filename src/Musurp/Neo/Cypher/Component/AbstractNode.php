@@ -57,7 +57,7 @@ abstract class AbstractNode extends AbstractComponent
      *
      * @return string
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
         $string = $this->variable ?: '';
 

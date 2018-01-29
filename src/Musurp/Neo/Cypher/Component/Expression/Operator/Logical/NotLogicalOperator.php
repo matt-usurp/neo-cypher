@@ -33,8 +33,8 @@ final class NotLogicalOperator extends AbstractComponent
     /**
      * {@inheritdoc}
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
-        return sprintf('NOT %s', $this->expression->compile());
+        return sprintf('NOT %s', $this->expression->compile($pretty));
     }
 }

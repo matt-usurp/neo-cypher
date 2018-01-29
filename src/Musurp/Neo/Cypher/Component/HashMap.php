@@ -34,7 +34,7 @@ final class HashMap extends AbstractComponent
     /**
      * {@inheritdoc}
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
         return HashMapHelper::map($this->map);
     }

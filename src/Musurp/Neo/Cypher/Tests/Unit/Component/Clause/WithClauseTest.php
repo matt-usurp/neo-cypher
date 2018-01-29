@@ -63,6 +63,25 @@ CYPHER;
      *
      * @covers \Musurp\Neo\Cypher\Component\Clause\WithClause
      */
+    public function createClauseSingleVariableWithoutPrettyHasNoEffect(): void
+    {
+        $clause = new WithClause(['one']);
+
+        $cypher = <<<CYPHER
+WITH one
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\WithClause
+     */
     public function createClauseMultipleVariables(): void
     {
         $clause = new WithClause(['one', 'two']);
@@ -74,5 +93,24 @@ WITH
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\WithClause
+     */
+    public function createClauseMultipleVariablesWithoutPretty(): void
+    {
+        $clause = new WithClause(['one', 'two']);
+
+        $cypher = <<<CYPHER
+WITH one, two
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
     }
 }

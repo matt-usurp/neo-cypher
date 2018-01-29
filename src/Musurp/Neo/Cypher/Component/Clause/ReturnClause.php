@@ -33,9 +33,9 @@ final class ReturnClause extends AbstractExitClause
     /**
      * {@inheritdoc}
      */
-    public function compile(): string
+    public function compile(bool $pretty = true): string
     {
-        if (count($this->variables) === 1) {
+        if (!$pretty || (count($this->variables) === 1)) {
             return sprintf('RETURN %s', implode(', ', $this->variables));
         }
 
