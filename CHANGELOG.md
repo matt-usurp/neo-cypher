@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Nothing.
+
+## [0.1.2] - 2018-01-29
+
 ### Added
 - Added `OPTIONAL MATCH` [clause](http://neo4j.com/docs/developer-manual/current/cypher/clauses/).
 - Added the `HashMap` for creating hash maps.
