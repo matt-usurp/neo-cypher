@@ -12,26 +12,58 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher;
 
 /**
- * An abstract query component.
- *
- * This class represents a base for anything in the Cypher syntax tree.
+ * An abstract component representing syntax elements.
  */
 abstract class AbstractComponent
 {
     /**
-     * Return the expression as string.
+     * Compile the expression to string.
+     *
+     * @param bool $pretty
      *
      * @return string
      */
-    abstract public function toString(): string;
+    abstract public function compile(bool $pretty = true): string;
 
     /**
-     * Allow magic return of the expression as string.
+     * A magic method to allow all components to be cast to string.
      *
      * @return string
      */
     public function __toString(): string
     {
-        return $this->toString();
+        return $this->compile();
+    }
+
+    /**
+     * Pad a string to be indented on every line.
+     *
+     * @param string $statement
+     *
+     * @return string
+     */
+    protected function pad(string $statement): string
+    {
+        return sprintf('  %s', str_replace("\n", "\n  ", $statement));
+    }
+
+    /**
+     * Glue a series of components.
+     *
+     * @param string $glue
+     * @param AbstractComponent[] $components
+     * @param bool $pretty
+     *
+     * @return string
+     */
+    protected function glue(string $glue, array $components, bool $pretty = true): string
+    {
+        $compiled = [];
+
+        foreach ($components as $component) {
+            $compiled[] = $component->compile($pretty);
+        }
+
+        return implode($glue, $compiled);
     }
 }

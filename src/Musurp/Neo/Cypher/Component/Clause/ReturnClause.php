@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Component\Clause;
 
-use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExitClause;
 
 /**
  * Implementation for clause: RETURN.
  */
-final class ReturnClause extends AbstractComponent
+final class ReturnClause extends AbstractExitClause
 {
     private $variables;
 
@@ -33,8 +33,12 @@ final class ReturnClause extends AbstractComponent
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
-        return sprintf('RETURN %s', implode(', ', $this->variables));
+        if (!$pretty || (count($this->variables) === 1)) {
+            return sprintf('RETURN %s', implode(', ', $this->variables));
+        }
+
+        return sprintf("RETURN\n%s", $this->pad(implode(",\n", $this->variables)));
     }
 }

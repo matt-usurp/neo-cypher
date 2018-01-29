@@ -13,23 +13,23 @@ namespace Musurp\Neo\Cypher\Builder\Statement;
 
 use Musurp\Neo\Cypher\Builder\BuilderInterface;
 use Musurp\Neo\Cypher\Builder\QueryBuilder;
-use Musurp\Neo\Cypher\Component\Clause\WithClause;
+use Musurp\Neo\Cypher\Component\AbstractExitClause;
 
 class StatementSegment implements BuilderInterface
 {
     private $builder;
-    private $with;
+    private $exit;
 
     /**
      * Constructor.
      *
      * @param QueryBuilder $builder
-     * @param WithClause $with
+     * @param AbstractExitClause $exit
      */
-    public function __construct(QueryBuilder $builder, WithClause $with)
+    public function __construct(QueryBuilder $builder, AbstractExitClause $exit)
     {
         $this->builder = $builder;
-        $this->with = $with;
+        $this->exit = $exit;
     }
 
     /**
@@ -37,9 +37,9 @@ class StatementSegment implements BuilderInterface
      */
     public function build(): string
     {
-        return implode(PHP_EOL, [
+        return implode("\n\n", [
             $this->builder->build(),
-            $this->with->toString(),
+            $this->exit->compile(),
         ]);
     }
 }

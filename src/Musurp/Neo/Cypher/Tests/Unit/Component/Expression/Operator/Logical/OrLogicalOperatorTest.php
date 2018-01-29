@@ -37,10 +37,35 @@ class OrLogicalOperatorTest extends TestCase
         );
 
         $cypher = <<<CYPHER
+(
+  TRUE
+  OR FALSE
+)
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator
+     */
+    public function createBasicOrOperatorWithoutPretty(): void
+    {
+        $operator = new OrLogicalOperator(
+            new ScalarIdentifier(true),
+            new ScalarIdentifier(false)
+        );
+
+        $cypher = <<<CYPHER
 (TRUE OR FALSE)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile(false));
     }
 
     /**
@@ -62,10 +87,41 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
+(
+  TRUE
+  OR (
+    TRUE
+    OR 'hello'
+  )
+)
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\OrLogicalOperator
+     */
+    public function createNestedOrOperatorsWithoutPretty(): void
+    {
+        $operator = new OrLogicalOperator(
+            new ScalarIdentifier(true),
+            new OrLogicalOperator(
+                new ScalarIdentifier(true),
+                new ScalarIdentifier('hello')
+            )
+        );
+
+        $cypher = <<<CYPHER
 (TRUE OR (TRUE OR 'hello'))
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile(false));
     }
 
     /**
@@ -96,10 +152,25 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(((TRUE OR 'foo') OR 'bar') OR (FALSE OR (4 OR 7.4)))
+(
+  (
+    (
+      TRUE
+      OR 'foo'
+    )
+    OR 'bar'
+  )
+  OR (
+    FALSE
+    OR (
+      4
+      OR 7.4
+    )
+  )
+)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -135,9 +206,29 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(((TRUE OR 'foo') OR 'bar') OR (FALSE OR (4 OR 7.4) OR FALSE) OR (2 OR 'hammer'))
+(
+  (
+    (
+      TRUE
+      OR 'foo'
+    )
+    OR 'bar'
+  )
+  OR (
+    FALSE
+    OR (
+      4
+      OR 7.4
+    )
+    OR FALSE
+  )
+  OR (
+    2
+    OR 'hammer'
+  )
+)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

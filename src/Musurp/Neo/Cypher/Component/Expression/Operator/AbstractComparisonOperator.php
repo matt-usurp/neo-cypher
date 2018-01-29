@@ -56,8 +56,8 @@ abstract class AbstractComparisonOperator extends AbstractExpressionComponent
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
-        return sprintf('(%s %s %s)', $this->left->toString(), $this->getOperator(), $this->right->toString());
+        return sprintf('(%s %s %s)', $this->left->compile(), $this->getOperator(), $this->right->compile());
     }
 }

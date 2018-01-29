@@ -33,7 +33,7 @@ class ReturnClauseTest extends TestCase
         self::markTestIncomplete();
 
         $clause = new ReturnClause([]);
-        $clause->toString();
+        $clause->compile();
     }
 
     /**
@@ -52,7 +52,26 @@ class ReturnClauseTest extends TestCase
 RETURN one
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\WithClause
+     */
+    public function createClauseSingleVariableWithoutPrettyHasNoEffect(): void
+    {
+        $clause = new ReturnClause(['one']);
+
+        $cypher = <<<CYPHER
+RETURN one
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile(false));
     }
 
     /**
@@ -68,9 +87,30 @@ CYPHER;
         $clause = new ReturnClause(['one', 'two']);
 
         $cypher = <<<CYPHER
+RETURN
+  one,
+  two
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\ReturnClause
+     */
+    public function createClauseMultipleVariablesWithoutPretty(): void
+    {
+        $clause = new ReturnClause(['one', 'two']);
+
+        $cypher = <<<CYPHER
 RETURN one, two
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile(false));
     }
 }

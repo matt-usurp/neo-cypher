@@ -9,25 +9,26 @@
 
 declare(strict_types=1);
 
-namespace Musurp\Neo\Cypher\Component\Expression\Operator\Logical;
+namespace Musurp\Neo\Cypher\Component;
 
 use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Utility\HashMapHelper;
 
 /**
- * Implementation for logical operator: NOT.
+ * {@inheritdoc}
  */
-final class NotLogicalOperator extends AbstractComponent
+final class HashMap extends AbstractComponent
 {
-    private $expression;
+    private $map;
 
     /**
      * Constructor.
      *
-     * @param AbstractComponent $expression
+     * @param array $map
      */
-    public function __construct(AbstractComponent $expression)
+    public function __construct(array $map)
     {
-        $this->expression = $expression;
+        $this->map = $map;
     }
 
     /**
@@ -35,6 +36,6 @@ final class NotLogicalOperator extends AbstractComponent
      */
     public function compile(bool $pretty = true): string
     {
-        return sprintf('NOT %s', $this->expression->compile($pretty));
+        return HashMapHelper::map($this->map);
     }
 }

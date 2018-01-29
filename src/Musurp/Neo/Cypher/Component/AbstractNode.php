@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Component;
 
 use Musurp\Neo\Cypher\AbstractComponent;
-use Musurp\Neo\Cypher\Utility\MapHelper;
 
 abstract class AbstractNode extends AbstractComponent
 {
@@ -58,7 +57,7 @@ abstract class AbstractNode extends AbstractComponent
      *
      * @return string
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
         $string = $this->variable ?: '';
 
@@ -67,7 +66,7 @@ abstract class AbstractNode extends AbstractComponent
         }
 
         if (count($properties = array_filter($this->properties))) {
-            $map = MapHelper::map($properties);
+            $map = new HashMap($this->properties);
 
             if ($string === '') {
                 $string = $map;

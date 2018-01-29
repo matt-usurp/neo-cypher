@@ -87,10 +87,10 @@ final class Path extends AbstractComponent implements RelationshipDirectionEnum
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
         if ($this->root !== $this) {
-            return $this->root->toString();
+            return $this->root->compile($pretty);
         }
 
         return $this->toStringFromCurrent();
@@ -104,13 +104,13 @@ final class Path extends AbstractComponent implements RelationshipDirectionEnum
     protected function toStringFromCurrent(): string
     {
         if (!$this->relationship instanceof Relationship) {
-            return $this->node->toString();
+            return $this->node->compile();
         }
 
         return sprintf(
             '%s%s%s',
-            $this->node->toString(),
-            $this->relationship->toString(),
+            $this->node->compile(),
+            $this->relationship->compile(),
             $this->child->toStringFromCurrent()
         );
     }

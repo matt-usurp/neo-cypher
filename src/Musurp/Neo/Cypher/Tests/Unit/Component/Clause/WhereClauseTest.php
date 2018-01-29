@@ -39,7 +39,7 @@ class WhereClauseTest extends TestCase
         self::markTestIncomplete();
 
         $clause = new WhereClause([]);
-        $clause->toString();
+        $clause->compile();
     }
 
     /**
@@ -59,7 +59,27 @@ class WhereClauseTest extends TestCase
 WHERE TRUE
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\WhereClause
+     */
+    public function createClauseWithExpressionWithoutPrettyHasNoEffect(): void
+    {
+        $clause = new WhereClause();
+        $clause->where(new ScalarIdentifier(true));
+
+        $cypher = <<<CYPHER
+WHERE TRUE
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile());
     }
 
     /**
@@ -89,9 +109,45 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
+WHERE (
+  (1 >= 0)
+  AND NOT (var:LABEL)-->(:TWO)
+)
+CYPHER;
+
+        self::assertEquals($cypher, $clause->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Clause\WhereClause
+     */
+    public function createClauseWithMoreComplexExpressionWithoutPretty(): void
+    {
+        $clause = new WhereClause();
+        $clause->where(
+            new AndLogicalOperator(
+                new GreaterThanOrEqualComparisonOperator(
+                    new ScalarIdentifier(1),
+                    new ScalarIdentifier(0)
+                ),
+                new NotLogicalOperator(
+                    (new Path(new Node('var', ['LABEL'], [])))
+                        ->relatesTo(
+                            new Node(null, ['TWO'], [])
+                        )
+                )
+            )
+        );
+
+        $cypher = <<<CYPHER
 WHERE ((1 >= 0) AND NOT (var:LABEL)-->(:TWO))
 CYPHER;
 
-        self::assertEquals($cypher, $clause->toString());
+        self::assertEquals($cypher, $clause->compile(false));
     }
 }

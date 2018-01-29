@@ -47,26 +47,26 @@ final class Relationship extends AbstractComponent implements RelationshipDirect
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
         switch ($this->direction) {
             case self::DIRECTION_ANY:
                 if ($this->node instanceof RelationshipNode) {
-                    return sprintf('-%s-', $this->node->toString());
+                    return sprintf('-%s-', $this->node->compile($pretty));
                 }
 
                 return '--';
 
             case self::DIRECTION_TO:
                 if ($this->node instanceof RelationshipNode) {
-                    return sprintf('-%s->', $this->node->toString());
+                    return sprintf('-%s->', $this->node->compile($pretty));
                 }
 
                 return '-->';
 
             case self::DIRECTION_FROM:
                 if ($this->node instanceof RelationshipNode) {
-                    return sprintf('<-%s-', $this->node->toString());
+                    return sprintf('<-%s-', $this->node->compile($pretty));
                 }
 
                 return '<--';

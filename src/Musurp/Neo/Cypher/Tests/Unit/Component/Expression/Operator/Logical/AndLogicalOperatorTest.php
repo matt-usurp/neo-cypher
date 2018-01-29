@@ -37,10 +37,35 @@ class AndLogicalOperatorTest extends TestCase
         );
 
         $cypher = <<<CYPHER
+(
+  TRUE
+  AND FALSE
+)
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator
+     */
+    public function createBasicAndOperatorWithoutPretty(): void
+    {
+        $operator = new AndLogicalOperator(
+            new ScalarIdentifier(true),
+            new ScalarIdentifier(false)
+        );
+
+        $cypher = <<<CYPHER
 (TRUE AND FALSE)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile(false));
     }
 
     /**
@@ -62,10 +87,41 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
+(
+  TRUE
+  AND (
+    TRUE
+    AND 'hello'
+  )
+)
+CYPHER;
+
+        self::assertEquals($cypher, $operator->compile());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Component\Expression\Operator\Logical\AndLogicalOperator
+     */
+    public function createNestedAndOperatorsWithoutPretty(): void
+    {
+        $operator = new AndLogicalOperator(
+            new ScalarIdentifier(true),
+            new AndLogicalOperator(
+                new ScalarIdentifier(true),
+                new ScalarIdentifier('hello')
+            )
+        );
+
+        $cypher = <<<CYPHER
 (TRUE AND (TRUE AND 'hello'))
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile(false));
     }
 
     /**
@@ -96,10 +152,25 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(((TRUE AND 'foo') AND 'bar') AND (FALSE AND (4 AND 7.4)))
+(
+  (
+    (
+      TRUE
+      AND 'foo'
+    )
+    AND 'bar'
+  )
+  AND (
+    FALSE
+    AND (
+      4
+      AND 7.4
+    )
+  )
+)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 
     /**
@@ -135,9 +206,29 @@ CYPHER;
         );
 
         $cypher = <<<CYPHER
-(((TRUE AND 'foo') AND 'bar') AND (FALSE AND (4 AND 7.4) AND FALSE) AND (2 AND 'hammer'))
+(
+  (
+    (
+      TRUE
+      AND 'foo'
+    )
+    AND 'bar'
+  )
+  AND (
+    FALSE
+    AND (
+      4
+      AND 7.4
+    )
+    AND FALSE
+  )
+  AND (
+    2
+    AND 'hammer'
+  )
+)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

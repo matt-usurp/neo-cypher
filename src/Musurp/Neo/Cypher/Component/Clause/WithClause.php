@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Musurp\Neo\Cypher\Component\Clause;
 
-use Musurp\Neo\Cypher\AbstractComponent;
+use Musurp\Neo\Cypher\Component\AbstractExitClause;
 
 /**
  * Implementation for clause: WITH.
  */
-final class WithClause extends AbstractComponent
+final class WithClause extends AbstractExitClause
 {
     private $variables;
 
@@ -33,8 +33,12 @@ final class WithClause extends AbstractComponent
     /**
      * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
-        return sprintf('WITH %s', implode(', ', $this->variables));
+        if (!$pretty || (count($this->variables) === 1)) {
+            return sprintf('WITH %s', implode(', ', $this->variables));
+        }
+
+        return sprintf("WITH\n%s", $this->pad(implode(",\n", $this->variables)));
     }
 }

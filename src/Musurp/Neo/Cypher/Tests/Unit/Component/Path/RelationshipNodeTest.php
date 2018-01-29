@@ -37,7 +37,7 @@ class RelationshipNodeTest extends TestCase
 []
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -57,7 +57,7 @@ CYPHER;
 [var]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -77,7 +77,7 @@ CYPHER;
 [:ONE]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -97,7 +97,7 @@ CYPHER;
 [:ONE|TWO]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -119,7 +119,7 @@ CYPHER;
 [{foo: 'bar'}]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -142,7 +142,7 @@ CYPHER;
 [{foo: 'bar', tony: 'stark'}]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -162,7 +162,7 @@ CYPHER;
 [var:ONE]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -184,7 +184,7 @@ CYPHER;
 [var {foo: 'bar'}]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -206,7 +206,7 @@ CYPHER;
 [:ONE {foo: 'bar'}]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 
     /**
@@ -228,6 +228,6 @@ CYPHER;
 [var:ONE|TWO {foo: 'bar'}]
 CYPHER;
 
-        self::assertEquals($cypher, $node->toString());
+        self::assertEquals($cypher, $node->compile());
     }
 }

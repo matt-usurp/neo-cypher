@@ -59,7 +59,7 @@ class InListOperatorTest extends TestCase
     public function createWithScalarValuesDirect(string $expected, $left, $right): void
     {
         $operator = new InListOperator($left, $right);
-        self::assertEquals($expected, $operator->toString());
+        self::assertEquals($expected, $operator->compile());
     }
 
     /**
@@ -81,6 +81,6 @@ class InListOperatorTest extends TestCase
 (TRUE IN FALSE)
 CYPHER;
 
-        self::assertEquals($cypher, $operator->toString());
+        self::assertEquals($cypher, $operator->compile());
     }
 }

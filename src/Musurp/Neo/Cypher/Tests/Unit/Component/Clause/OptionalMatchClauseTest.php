@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Tests\Unit\Component\Clause;
 
 use Musurp\Neo\Cypher\Component\Clause\MatchClause;
+use Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause;
 use Musurp\Neo\Cypher\Component\Path;
 use Musurp\Neo\Cypher\Component\Path\Node;
 use Musurp\Neo\Cypher\Exception\ComponentRuntimeException;
@@ -21,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * {@inheritdoc}
  */
-class MatchClauseTest extends TestCase
+class OptionalMatchClauseTest extends TestCase
 {
     /**
      * @test
@@ -29,15 +30,15 @@ class MatchClauseTest extends TestCase
      * @group unit
      * @group component
      *
-     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     * @covers \Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause
      */
-    public function createClauseEmptyThrows(): void
+    public function createWithEmptyMatchClauseEmptyThrows(): void
     {
         self::markTestIncomplete();
 
         self::expectException(ComponentRuntimeException::class);
 
-        $clause = new MatchClause();
+        $clause = new OptionalMatchClause(new MatchClause());
         $clause->compile();
     }
 
@@ -47,7 +48,7 @@ class MatchClauseTest extends TestCase
      * @group unit
      * @group component
      *
-     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     * @covers \Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause
      */
     public function createClauseSinglePath(): void
     {
@@ -56,8 +57,10 @@ class MatchClauseTest extends TestCase
             (new Path(new Node(null, ['ONE'], [])))
         );
 
+        $clause = new OptionalMatchClause($clause);
+
         $cypher = <<<CYPHER
-MATCH (:ONE)
+OPTIONAL MATCH (:ONE)
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile());
@@ -69,7 +72,7 @@ CYPHER;
      * @group unit
      * @group component
      *
-     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     * @covers \Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause
      */
     public function createClauseSinglePathWithoutPrettyHasNoEffect(): void
     {
@@ -78,8 +81,10 @@ CYPHER;
             (new Path(new Node(null, ['ONE'], [])))
         );
 
+        $clause = new OptionalMatchClause($clause);
+
         $cypher = <<<CYPHER
-MATCH (:ONE)
+OPTIONAL MATCH (:ONE)
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile(false));
@@ -91,7 +96,7 @@ CYPHER;
      * @group unit
      * @group component
      *
-     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     * @covers \Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause
      */
     public function createClauseMultiplePaths(): void
     {
@@ -103,8 +108,10 @@ CYPHER;
             ])))
         );
 
+        $clause = new OptionalMatchClause($clause);
+
         $cypher = <<<CYPHER
-MATCH
+OPTIONAL MATCH
   (:ONE),
   ({foo: 'bar'})
 CYPHER;
@@ -118,7 +125,7 @@ CYPHER;
      * @group unit
      * @group component
      *
-     * @covers \Musurp\Neo\Cypher\Component\Clause\MatchClause
+     * @covers \Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause
      */
     public function createClauseMultiplePathsWithoutPretty(): void
     {
@@ -130,8 +137,10 @@ CYPHER;
             ])))
         );
 
+        $clause = new OptionalMatchClause($clause);
+
         $cypher = <<<CYPHER
-MATCH (:ONE), ({foo: 'bar'})
+OPTIONAL MATCH (:ONE), ({foo: 'bar'})
 CYPHER;
 
         self::assertEquals($cypher, $clause->compile(false));

@@ -14,7 +14,7 @@ namespace Musurp\Neo\Cypher\Component\Expression\Operator\Typed;
 use Musurp\Neo\Cypher\Component\Expression\Operator\AbstractComparisonOperator;
 
 /**
- * {@inheritdoc}
+ * Implementation for list operator: IN.
  */
 class InListOperator extends AbstractComparisonOperator
 {

@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace Musurp\Neo\Cypher\Tests\Unit\Builder;
 
 use Musurp\Neo\Cypher\Builder\QueryBuilder;
+use Musurp\Neo\Cypher\Component\Clause\MatchClause;
+use Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause;
 
 use PHPUnit\Framework\TestCase;
 
@@ -64,6 +66,26 @@ CYPHER;
      *
      * @covers \Musurp\Neo\Cypher\Builder\QueryBuilder
      */
+    public function createQueryBuilderWithSingleOptionalMatch(): void
+    {
+        $builder = new QueryBuilder();
+        $builder->match($builder::path()->create(null, [], []), true);
+
+        $cypher = <<<CYPHER
+OPTIONAL MATCH ()
+CYPHER;
+
+        self::assertEquals($cypher, $builder->build());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Builder\QueryBuilder
+     */
     public function createQueryBuilderWithMultipleMatches(): void
     {
         $builder = new QueryBuilder();
@@ -73,6 +95,28 @@ CYPHER;
         $cypher = <<<CYPHER
 MATCH ()
 MATCH (:ONE)
+CYPHER;
+
+        self::assertEquals($cypher, $builder->build());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Builder\QueryBuilder
+     */
+    public function createQueryBuilderWithMultipleOptionalMatches(): void
+    {
+        $builder = new QueryBuilder();
+        $builder->match($builder::path()->create(null, [], []), true);
+        $builder->match($builder::path()->create(null, ['ONE'], []), true);
+
+        $cypher = <<<CYPHER
+OPTIONAL MATCH ()
+OPTIONAL MATCH (:ONE)
 CYPHER;
 
         self::assertEquals($cypher, $builder->build());
@@ -99,7 +143,59 @@ CYPHER;
 
         $cypher = <<<CYPHER
 MATCH ()
-MATCH (:ONE), (var:ONE {foo: 'bar'})
+MATCH
+  (:ONE),
+  (var:ONE {foo: 'bar'})
+CYPHER;
+
+        self::assertEquals($cypher, $builder->build());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Builder\QueryBuilder
+     */
+    public function createQueryBuilderWithMatchInstance(): void
+    {
+        $builder = new QueryBuilder();
+        $builder->match(
+            new MatchClause([
+                $builder::path()->node(null, [], []),
+            ])
+        );
+
+        $cypher = <<<CYPHER
+MATCH ()
+CYPHER;
+
+        self::assertEquals($cypher, $builder->build());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group component
+     *
+     * @covers \Musurp\Neo\Cypher\Builder\QueryBuilder
+     */
+    public function createQueryBuilderWithOptionalMatchInstance(): void
+    {
+        $builder = new QueryBuilder();
+        $builder->match(
+            new OptionalMatchClause(
+                new MatchClause([
+                    $builder::path()->node(null, [], []),
+                ])
+            )
+        );
+
+        $cypher = <<<CYPHER
+OPTIONAL MATCH ()
 CYPHER;
 
         self::assertEquals($cypher, $builder->build());
@@ -131,7 +227,10 @@ CYPHER;
 
         $cypher = <<<CYPHER
 MATCH (var:ONE {foo: 'bar'})
-WHERE ((1 = 'hello') AND (var:TWO))
+WHERE (
+  (1 = 'hello')
+  AND (var:TWO)
+)
 CYPHER;
 
         self::assertEquals($cypher, $builder->build());
@@ -157,7 +256,8 @@ CYPHER;
         $builder->where(
             $builder::expr()->andX(
                 $builder::expr()->eq(1, 'hello'),
-                $builder::path()->create('var', ['TWO'], [])
+                $builder::path()->create('var', ['TWO'], []),
+                $builder::expr()->lt(1, 2)
             )
         );
 
@@ -165,7 +265,11 @@ CYPHER;
 
         $cypher = <<<CYPHER
 MATCH (var:ONE {foo: 'bar'})
-WHERE ((1 = 'hello') AND (var:TWO))
+WHERE (
+  (1 = 'hello')
+  AND (var:TWO)
+  AND (1 < 2)
+)
 RETURN var
 CYPHER;
 

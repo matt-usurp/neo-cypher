@@ -9,25 +9,26 @@
 
 declare(strict_types=1);
 
-namespace Musurp\Neo\Cypher\Component\Expression\Operator\Logical;
+namespace Musurp\Neo\Cypher\Component\Clause;
 
 use Musurp\Neo\Cypher\AbstractComponent;
 
 /**
- * Implementation for logical operator: NOT.
+ * Implementation for clause: OPTIONAL MATCH.
  */
-final class NotLogicalOperator extends AbstractComponent
+final class OptionalMatchClause extends AbstractComponent
 {
-    private $expression;
+    /** @var MatchClause */
+    protected $match;
 
     /**
      * Constructor.
      *
-     * @param AbstractComponent $expression
+     * @param MatchClause $match
      */
-    public function __construct(AbstractComponent $expression)
+    public function __construct(MatchClause $match)
     {
-        $this->expression = $expression;
+        $this->match = $match;
     }
 
     /**
@@ -35,6 +36,6 @@ final class NotLogicalOperator extends AbstractComponent
      */
     public function compile(bool $pretty = true): string
     {
-        return sprintf('NOT %s', $this->expression->compile($pretty));
+        return sprintf('OPTIONAL %s', $this->match->compile($pretty));
     }
 }

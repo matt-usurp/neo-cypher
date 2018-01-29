@@ -49,12 +49,14 @@ final class MatchClause extends AbstractComponent
     }
 
     /**
-     * Return the expression as string.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
-        return sprintf('MATCH %s', implode(', ', $this->paths));
+        if (!$pretty || (count($this->paths) === 1)) {
+            return sprintf('MATCH %s', implode(', ', $this->paths));
+        }
+
+        return sprintf("MATCH\n%s", $this->pad(implode(",\n", $this->paths)));
     }
 }

@@ -33,9 +33,11 @@ class ScalarIdentifier extends AbstractIdentifierExpression
     /**
      * Return the expression as string.
      *
+     * @param bool $pretty
+     *
      * @return string
      */
-    public function toString(): string
+    public function compile(bool $pretty = true): string
     {
         if (is_null($this->value)) {
             return 'NULL';
