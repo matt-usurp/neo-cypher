@@ -49,11 +49,7 @@ final class MatchClause extends AbstractComponent
     }
 
     /**
-     * Return the expression as string.
-     *
-     * @param bool $pretty
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function compile(bool $pretty = true): string
     {

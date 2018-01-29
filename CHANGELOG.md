@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
+- Added `OPTIONAL MATCH` [clause](http://neo4j.com/docs/developer-manual/current/cypher/clauses/).
 - Added the `HashMap` for creating hash maps.
 
 ### Change
+- The `QueryBuilder::match` now supports an `$optional` flag for `OPTIONAL MATCH` clause.
 - The `compile()` method now accepts a boolean to optionally output non-pretty.
 - The `AbstractNodecomponent` now uses `HashMap` instead of the `HashMapHelper` directly.
 - The Cypher output formatting is now "prettier" instead of being on a single line.

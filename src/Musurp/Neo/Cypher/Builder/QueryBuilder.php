@@ -14,6 +14,7 @@ namespace Musurp\Neo\Cypher\Builder;
 use Musurp\Neo\Cypher\Builder\Helper\ExpressionHelper;
 use Musurp\Neo\Cypher\Builder\Helper\PathHelper;
 use Musurp\Neo\Cypher\Component\Clause\MatchClause;
+use Musurp\Neo\Cypher\Component\Clause\OptionalMatchClause;
 use Musurp\Neo\Cypher\Component\Clause\ReturnClause;
 use Musurp\Neo\Cypher\Component\Clause\WhereClause;
 use Musurp\Neo\Cypher\Component\Path;
@@ -48,16 +49,21 @@ class QueryBuilder implements BuilderInterface
     /**
      * {@inheritdoc}
      *
-     * @param MatchClause|Path|Path[] $match
+     * @param MatchClause|OptionalMatchClause|Path|Path[] $match
+     * @param bool $optional
      *
      * @return QueryBuilder
      */
-    public function match($match): self
+    public function match($match, bool $optional = false): self
     {
         if (is_array($match)) {
             $match = new MatchClause($match);
         } elseif ($match instanceof Path) {
             $match = new MatchClause([$match]);
+        }
+
+        if ($optional) {
+            $match = new OptionalMatchClause($match);
         }
 
         $this->matches[] = $match;

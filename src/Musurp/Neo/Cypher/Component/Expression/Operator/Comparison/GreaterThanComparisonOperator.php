@@ -14,7 +14,7 @@ namespace Musurp\Neo\Cypher\Component\Expression\Operator\Comparison;
 use Musurp\Neo\Cypher\Component\Expression\Operator\AbstractComparisonOperator;
 
 /**
- * Implementation for comparison operator: >
+ * Implementation for comparison operator: >.
  */
 final class GreaterThanComparisonOperator extends AbstractComparisonOperator
 {
